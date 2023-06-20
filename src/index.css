@@ -189,7 +189,8 @@ color: #fff;
 text-shadow: none;
 }
 .no-movies {
-padding: 20px 0;
+padding: 80px 0;
 font-size: 20px;
 color: #6d6d6d;
+text-align: center;
 }
