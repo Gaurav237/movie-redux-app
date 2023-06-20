@@ -1,10 +1,32 @@
 import React from "react";
+import { data } from '../data'; 
 import Navbar from "./Navbar";
 import MovieCard from "./MovieCard";
 
 class App extends React.Component {
 
+  componentDidMount() {
+    // make an api call
+    // dipatch action
+
+    const { store } = this.props;
+    
+    // subscribe to store
+    store.subscribe( () => {
+      console.log('UPDATED');
+      this.forceUpdate();
+    });
+
+    store.dispatch({
+      type: 'ADD_MOVIES',
+      movies: data
+    });
+
+    console.log(this.props.store.getState());
+  }
+
   render() {
+    console.log('RENDER');
     const  movies = this.props.store.getState();
 
     return (
