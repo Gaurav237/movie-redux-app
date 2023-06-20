@@ -1,21 +1,17 @@
-import { ADD_MOVIES } from "../actions";
+import { ADD_MOVIES, ADD_FAVOURITE } from "../actions";
 
 const initialMoviesState = {
     list: [],
     favourites: []
 }
 
-/*
-    why spread operator is used here ?
-    eg: 
-    var alpha = { a: 1, b: 2, c: 3 }
-
-    var beta = { ...alpha, b: 100 }        
-    // O/P: beta = { a: 1, b: 100, c: 3 } 
-*/
 export default function movies (state = initialMoviesState, action) {
-    if(action.type === ADD_MOVIES) {
-        return { ...state, list: action.movies }
+    switch(action.type) {
+        case ADD_MOVIES:
+            return { ...state, list: action.movies }
+        case ADD_FAVOURITE:
+            return { ...state, favourites: [action.movie, ...state.favourites] }
+        default:
+            return state;
     }
-    return state;
 }

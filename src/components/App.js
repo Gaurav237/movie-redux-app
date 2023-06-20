@@ -23,6 +23,17 @@ class App extends React.Component {
     console.log(this.props.store.getState());
   }
 
+  // this function will chehck if this movie is in favourite list or not
+  isMovieFavourite = (movie) => {
+    const { favourites } = this.props.store.getState();
+
+    const index = favourites.indexOf(movie); // bool
+    if(index !== -1){
+      return true;
+    }
+    return false;
+  }
+
   render() {
     console.log('RENDER', this.props.store.getState());
     const { list, favourites }  = this.props.store.getState();  // Obj{ list: [], favourites: [] }
@@ -43,6 +54,8 @@ class App extends React.Component {
               <MovieCard 
               movie={movie}
               key={`movie-${index}`}
+              dispatch={this.props.store.dispatch}
+              isFavourite={this.isMovieFavourite(movie)}
               />
               );
             }) }
