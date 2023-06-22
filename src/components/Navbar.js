@@ -1,13 +1,41 @@
 import React from "react";
+import { addMovieToList, handleMovieSearch } from "../actions";
 
 class Navbar extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            showSearchResults: true,
+            searchText: ''
+        };
+    }
+
+    handleAddToMovies = (movie) => {
+        this.props.dispatch(addMovieToList(movie));
+        this.setState({
+            showSearchResults: false
+        });
+    }
+
+    handleSearch = () => {
+        const { searchText } = this.state;
+
+        this.props.dispatch(handleMovieSearch(searchText));
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            searchText: e.target.value
+        })
+    }
     
     render () {
         return (
             <div className="nav">
                 <div className="search-container">
-                    <input placeholder="search for movies here" />
-                    <button className="search-btn">search</button>
+                    <input onChange={this.handleChange} placeholder="search for movies here" />
+                    <button onClick={this.handleSearch} className="search-btn">search</button>
                 </div>
             </div>
         );
