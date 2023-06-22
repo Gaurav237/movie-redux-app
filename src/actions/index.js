@@ -4,6 +4,7 @@ export const ADD_TO_FAVOURITES = 'ADD_TO_FAVOURITES';
 export const REMOVE_FROM_FAVOURITES = 'REMOVE_FROM_FAVOURITES';
 export const SET_SHOW_FAVOURITES = 'SET_SHOW_FAVOURITES';
 export const ADD_MOVIE_TO_LIST = 'ADD_MOVIE_TO_LIST';
+export const ADD_SEARCH_RESULT = 'ADD_SEARCH_RESULT';
 
 // action creators
 export function addMovies (movies) {
@@ -41,8 +42,8 @@ export function addMovieToList (movie) {
   }
 }
 
-export function handleMovieSearch (searchText) {
-  const url = `https://www.omdbapi.com/?apikey=d47b244d&t=${searchText}`
+export function handleMovieSearch (movieTitle) {
+  const url = `https://www.omdbapi.com/?apikey=d47b244d&t=${movieTitle}`
 
   return function (dispatch) {
     fetch(url)
@@ -53,7 +54,14 @@ export function handleMovieSearch (searchText) {
       console.log('movie', movie);
 
       // dispatch an action to add this movie to store
-      // dispatch({})
+      dispatch(addMovieSearchResult(movie));
     })
   }
+}
+
+export function addMovieSearchResult (movie) {
+  return {
+    type: ADD_SEARCH_RESULT,
+    movie: movie
+  };
 }
